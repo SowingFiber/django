@@ -25,3 +25,20 @@ class Post(models.Model):
         return self.title
 
 #Post Class End
+
+#Basic Tweet Class Start
+class Tweet(models.Model):
+    tweet = models.TextField(max_length=150)
+    slug = models.SlugField(max_length=250, unique_for_date='publish')
+    author = models.ForeignKey(User, on_delete=models.CASCADE,related_name='tweets')
+    publish = models.DateTimeField(default = timezone.now)
+    retweets = models.IntegerField(name='retweet')
+    likes = models.IntegerField(name='likes')
+
+    class Meta:
+        ordering = ('-publish',)
+
+    def __str__(self):
+        return self.tweet
+#Basic Tweet Class End
+
